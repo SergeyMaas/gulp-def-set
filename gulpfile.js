@@ -25,7 +25,7 @@ gulp.task('sass', function () {
 
 gulp.task('js', function() {
     gulp.src('assets/**/*.js')
-        .pipe(concat('app.js'))
+        .pipe(concat('script.js'))
         .pipe(gulp.dest('public/js'))
         .on('error', function(err, e) {
             console.log(err.message);
