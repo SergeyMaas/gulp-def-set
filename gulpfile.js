@@ -4,6 +4,8 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     sass = require('gulp-sass'),
     concat = require('gulp-concat'),
+    plumber = require('gulp-plumber'),
+    autoprefixer = require('gulp-autoprefixer'),
     livereload = require('gulp-livereload');
 
 gulp.task('connect', function() {
@@ -15,10 +17,16 @@ gulp.task('connect', function() {
 
 gulp.task('sass', function () {
     gulp.src('assets/**/*.sass')
+        .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(sass({indentedSyntax: true}))
         .pipe(sourcemaps.write())
         .pipe(concat('style.css'))
+        .pipe(autoprefixer({
+            browsers: ['last 10 versions'],
+            cascade: false
+        }))
+        .pipe(plumber.stop())
         .pipe(gulp.dest('public/css'))
         .pipe(connect.reload());
 });
